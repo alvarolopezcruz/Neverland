@@ -21,6 +21,25 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        if (isPlayerMoving())
+        {
+            gameObject.GetComponent<Animator>().SetBool("moving", true);
+        }
+
+        if (!isPlayerMoving())
+        {
+            gameObject.GetComponent<Animator>().SetBool("moving", false);
+        }
+
+        if (Input.GetKey("left"))
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        if (Input.GetKey("right"))
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     void FixedUpdate()
@@ -28,4 +47,18 @@ public class PlayerMovement : MonoBehaviour
         //Movement management goes here
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
+
+    bool isPlayerMoving()
+    {
+        if(Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down"))
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+    }
+
 }
