@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     Vector2 movement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,16 @@ public class PlayerMovement : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
+
+        if (isPlayerAttacking())
+        {
+            gameObject.GetComponent<Animator>().SetBool("attacking", true);
+        }
+
+        if (!isPlayerAttacking())
+        {
+            gameObject.GetComponent<Animator>().SetBool("attacking", false);
+        }
     }
 
     void FixedUpdate()
@@ -51,6 +62,19 @@ public class PlayerMovement : MonoBehaviour
     bool isPlayerMoving()
     {
         if(Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down"))
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+    }
+
+    bool isPlayerAttacking()
+    {
+        if (Input.GetKey("f"))
         {
             return true;
         }
