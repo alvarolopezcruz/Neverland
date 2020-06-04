@@ -1,18 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerManagment : MonoBehaviour
 {
     public float moveSpeed = 5;
     public Rigidbody2D rb;
 
     Vector2 movement;
 
-    // Start is called before the first frame update
+    public GameObject projectile;
+    public Transform Projectile_Start;
+
+    private float timeBtwShots;
+    public float startTimeBtwShots;
+
+    // Start is called before the first frame updateW
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -35,23 +42,46 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("left"))
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
+
+            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x - 1, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
+            projectile.GetComponent<SpriteRenderer>().flipX = true;
         }
 
         if (Input.GetKey("right"))
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
+
+            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x + 1, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
+            projectile.GetComponent<SpriteRenderer>().flipX = false;
         }
 
         if (isPlayerAttacking())
         {
             gameObject.GetComponent<Animator>().SetBool("attacking", true);
+
+
         }
 
         if (!isPlayerAttacking())
         {
             gameObject.GetComponent<Animator>().SetBool("attacking", false);
         }
+
+        if (timeBtwShots <= 0)
+        {
+            if (isPlayerAttacking())
+            {
+                Instantiate(projectile, Projectile_Start.position, Quaternion.identity); //Instanciamos el proyectil
+                timeBtwShots = startTimeBtwShots;
+            }
+        }
+        else
+        {
+            timeBtwShots -= Time.deltaTime;
+        }
     }
+
+
 
     void FixedUpdate()
     {
@@ -61,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool isPlayerMoving()
     {
-        if(Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down"))
+        if (Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down"))
         {
             return true;
         }

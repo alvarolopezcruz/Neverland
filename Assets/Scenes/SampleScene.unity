@@ -121,6 +121,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &222322082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222322083}
+  m_Layer: 0
+  m_Name: Projectile Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &222322083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222322082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.46, y: -0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1768370471}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &494632283
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,8 +242,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1066088683
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a9eefc5f644a5cd4f88cb2a2e23e7cbe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -319,7 +349,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.9658155
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -402,8 +432,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 283661247
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f70002257803293459081df24c168d6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -424,8 +454,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852188072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0003, y: -0.8169, z: 10}
-  m_LocalScale: {x: 1.0414367, y: 0.8635057, z: 1}
+  m_LocalPosition: {x: -0.0005, y: -0.813, z: 10}
+  m_LocalScale: {x: 1.1512233, y: 0.8643159, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -484,8 +514,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 283661247
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b4297b594046ef9438a325bed0e8d310, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -506,8 +536,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982438813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.002, y: 4.189, z: 10}
-  m_LocalScale: {x: 1.0408725, y: 0.8650153, z: 1}
+  m_LocalPosition: {x: 0.0013, y: 4.1898, z: 10}
+  m_LocalScale: {x: 1.1513385, y: 0.8657958, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -548,11 +578,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1768370471}
   - component: {fileID: 1768370470}
-  - component: {fileID: 1768370472}
   - component: {fileID: 1768370473}
   - component: {fileID: 1768370474}
   - component: {fileID: 1768370475}
   - component: {fileID: 1768370476}
+  - component: {fileID: 1768370472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -596,8 +626,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1066088683
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 5783845613238359697, guid: fcab43d65b2095f44aa6cca6487e5d00,
     type: 3}
@@ -621,7 +651,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.54, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 222322083}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -634,11 +665,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1768370469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d5af58a374ce9459b542264f313129, type: 3}
+  m_Script: {fileID: 11500000, guid: ffab20c420826b547b7f0345762778dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 5
   rb: {fileID: 1768370474}
+  projectile: {fileID: 2561795665048575705, guid: 3ac858a67fc0f88488267f9d99c66b56,
+    type: 3}
+  Projectile_Start: {fileID: 222322083}
+  startTimeBtwShots: 0.6
 --- !u!114 &1768370473
 MonoBehaviour:
   m_ObjectHideFlags: 0
