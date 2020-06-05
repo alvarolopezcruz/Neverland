@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerManagment : MonoBehaviour
 {
     public float moveSpeed = 5;
     public Rigidbody2D rb;
+    public string direction;
 
     Vector2 movement;
 
@@ -15,6 +17,8 @@ public class PlayerManagment : MonoBehaviour
 
     private float timeBtwShots;
     public float startTimeBtwShots;
+
+    public GameObject instantiation;
 
     // Start is called before the first frame updateW
     void Start()
@@ -45,6 +49,7 @@ public class PlayerManagment : MonoBehaviour
 
             Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x - 1, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
             projectile.GetComponent<SpriteRenderer>().flipX = true;
+            direction = "left";
         }
 
         if (Input.GetKey("right"))
@@ -53,6 +58,7 @@ public class PlayerManagment : MonoBehaviour
 
             Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x + 1, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
             projectile.GetComponent<SpriteRenderer>().flipX = false;
+            direction = "right";
         }
 
         if (isPlayerAttacking())
@@ -71,8 +77,9 @@ public class PlayerManagment : MonoBehaviour
         {
             if (isPlayerAttacking())
             {
-                Instantiate(projectile, Projectile_Start.position, Quaternion.identity); //Instanciamos el proyectil
+                instantiation = Instantiate(projectile, Projectile_Start.position, Quaternion.identity); //Instanciamos el proyectil
                 timeBtwShots = startTimeBtwShots;
+                instantiation.GetComponent<Projectile>().direction = direction;
             }
         }
         else
@@ -114,5 +121,4 @@ public class PlayerManagment : MonoBehaviour
             return false;
         }
     }
-
 }

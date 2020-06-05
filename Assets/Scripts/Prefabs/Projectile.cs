@@ -7,11 +7,14 @@ public class Projectile : MonoBehaviour
   
     public float speed;
     public float lifeTime;
+    public string direction;
+    public Rigidbody2D rb;
     
     // Start is called before the first frame update
     void Start()
     {
         Invoke("DestroyProjectile", lifeTime);
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -21,18 +24,18 @@ public class Projectile : MonoBehaviour
         
     }
 
-   /* void FixedUpdate()
+    void FixedUpdate()
     {
-        if (projectileDirection() == "left")
+        if (direction == "left")
         {
-            rb.MovePosition(-rb.position * speed * Time.fixedDeltaTime);
+            rb.AddForce(new Vector2(-1f, 0f), ForceMode2D.Impulse);
         }
         else
         {
-            rb.MovePosition(rb.position * speed * Time.fixedDeltaTime);
+            rb.AddForce(new Vector2(1f, 0f), ForceMode2D.Impulse);
         }
         
-    }*/
+    }
 
 
     void DestroyProjectile()
@@ -40,15 +43,5 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-     /*string projectileDirection()
-    {
-        if (player.position.x >= gameObject.GetComponent<Transform>().position.x)
-        {
-            return "left";
-        }
-        else
-        {
-            return "right";
-        }
-    }*/
+     
 }

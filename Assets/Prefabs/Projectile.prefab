@@ -118,3 +118,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifeTime: 3
+  direction: 
+  rb: {fileID: 0}
