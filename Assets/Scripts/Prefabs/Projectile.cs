@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-
+  
     public float speed;
     public float lifeTime;
     
@@ -17,11 +17,38 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(transform. * speed * Time.deltaTime);
+
+        
     }
+
+   /* void FixedUpdate()
+    {
+        if (projectileDirection() == "left")
+        {
+            rb.MovePosition(-rb.position * speed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            rb.MovePosition(rb.position * speed * Time.fixedDeltaTime);
+        }
+        
+    }*/
+
 
     void DestroyProjectile()
     {
         Destroy(gameObject);
     }
+
+     /*string projectileDirection()
+    {
+        if (player.position.x >= gameObject.GetComponent<Transform>().position.x)
+        {
+            return "left";
+        }
+        else
+        {
+            return "right";
+        }
+    }*/
 }

@@ -20,6 +20,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fixSprite(player);
+
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
         movement = direction;
@@ -33,6 +35,19 @@ public class Movement : MonoBehaviour
     void moveCharacter(Vector2 direction)
     {
         rb.MovePosition((Vector2)transform.position + (direction * movespeed * Time.deltaTime));
+    }
+
+    void fixSprite(Transform character)
+    {
+        if(gameObject.GetComponent<Transform>().position.x >= player.position.x)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
 }
