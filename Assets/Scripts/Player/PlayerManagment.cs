@@ -7,23 +7,27 @@ using UnityEngine;
 public class PlayerManagment : MonoBehaviour
 {
     public float moveSpeed = 5;
-    public Rigidbody2D rb;
     public string direction;
+    public float currentHealth;
+    public float maxHealth = 100;
 
     Vector2 movement;
 
+    public HealthBar healthBar;
     public GameObject projectile;
     public Transform Projectile_Start;
+    public Rigidbody2D rb;
+    public GameObject instantiation;
 
     private float timeBtwShots;
     public float startTimeBtwShots;
 
-    public GameObject instantiation;
 
     // Start is called before the first frame updateW
     void Start()
     {
-
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -96,6 +100,22 @@ public class PlayerManagment : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        takeDamage(20);
+        
+    }
+
+    void takeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.setHealth(currentHealth);
+        if(currentHealth <= 0)
+        {
+            //Matar al player
+        }
+    }
+
     bool isPlayerMoving()
     {
         if (Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down"))
@@ -121,4 +141,6 @@ public class PlayerManagment : MonoBehaviour
             return false;
         }
     }
+
+
 }

@@ -38,10 +38,15 @@ public class Projectile : MonoBehaviour
     }
 
 
-    void DestroyProjectile()
+     void DestroyProjectile()
     {
         Destroy(gameObject);
     }
 
-     
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        DestroyProjectile();
+    }
+
+
 }
