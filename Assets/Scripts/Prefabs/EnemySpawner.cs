@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExecutionerSpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
 
     public GameObject[] enemies;
-    float randX;
-    float randY;
+    int randomEnemie;
     public Transform spawnPoint;
     public float startTimeBtwSpawns;
     private float timeBtwSpawns;
@@ -21,11 +20,17 @@ public class ExecutionerSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        randomEnemie = Random.Range(0, enemies.Length);
+
         if (timeBtwSpawns <= 0)
         {
-            Instantiate(enemies[0], spawnPoint.transform.position, Quaternion.identity);
+            Instantiate(enemies[0], spawnPoint.position, Quaternion.identity);
+            timeBtwSpawns = startTimeBtwSpawns;
         }
-        
+        else
+        {
+            timeBtwSpawns -= Time.deltaTime;
+        }
 
     }
 }

@@ -7,7 +7,6 @@ public class ExecutionerManagment : MonoBehaviour
 {
 
     Transform player;
-    private Rigidbody2D rb;
     private Vector2 movement;
     public float movespeed = 3;
     public float maxHealth;
@@ -17,7 +16,6 @@ public class ExecutionerManagment : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
-        rb = gameObject.GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
     }
      
@@ -26,21 +24,15 @@ public class ExecutionerManagment : MonoBehaviour
     {
         fixSprite(player);
 
-        Vector3 direction = player.position - transform.position;
-        direction.Normalize();
-        movement = direction;
-        Debug.Log(direction);
+       
     }
 
     void FixedUpdate()
     {
-        moveCharacter(movement);
+        transform.position = Vector2.MoveTowards(transform.position, player.position, movespeed * Time.deltaTime);
     }
 
-    void moveCharacter(Vector2 direction)
-    {
-        rb.MovePosition((Vector2)transform.position + (direction * movespeed * Time.deltaTime));
-    }
+    
 
     void fixSprite(Transform character)
     {
