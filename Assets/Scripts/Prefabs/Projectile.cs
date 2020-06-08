@@ -28,11 +28,11 @@ public class Projectile : MonoBehaviour
     {
         if (direction == "left")
         {
-            rb.AddForce(new Vector2(-1f, 0f), ForceMode2D.Impulse);
+            rb.velocity = transform.right * -speed;
         }
         else
         {
-            rb.AddForce(new Vector2(1f, 0f), ForceMode2D.Impulse);
+            rb.velocity = transform.right * speed;
         }
         
     }
