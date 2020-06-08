@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerManagment : MonoBehaviour
@@ -10,6 +9,7 @@ public class PlayerManagment : MonoBehaviour
     public string direction;
     public float currentHealth;
     public float maxHealth = 100;
+    
 
     Vector2 movement;
 
@@ -19,13 +19,14 @@ public class PlayerManagment : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject instantiation;
 
-    private float timeBtwShots;
-    public float startTimeBtwShots;
+    public float interval = 0.65f;
+    private float nextShot = 0.0f;
 
 
     // Start is called before the first frame updateW
     void Start()
     {
+        projectile.GetComponent<SpriteRenderer>().flipX = false; //Para evitar problemas al momento de la instanciación
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
@@ -36,6 +37,7 @@ public class PlayerManagment : MonoBehaviour
         //Input management goes here
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+ 
 
         if (isPlayerMoving())
         {
@@ -67,28 +69,15 @@ public class PlayerManagment : MonoBehaviour
 
         if (isPlayerAttacking())
         {
-            gameObject.GetComponent<Animator>().SetBool("attacking", true);
-
-
-        }
-
-        if (!isPlayerAttacking())
-        {
-            gameObject.GetComponent<Animator>().SetBool("attacking", false);
-        }
-
-        if (timeBtwShots <= 0)
-        {
-            if (isPlayerAttacking())
+            if (Time.time >= nextShot)
             {
+                gameObject.GetComponent<Animator>().SetTrigger("attack");
+
+                nextShot = Time.time + interval;
+
                 instantiation = Instantiate(projectile, Projectile_Start.position, Quaternion.identity); //Instanciamos el proyectil
-                timeBtwShots = startTimeBtwShots;
                 instantiation.GetComponent<Projectile>().direction = direction;
             }
-        }
-        else
-        {
-            timeBtwShots -= Time.deltaTime;
         }
     }
 
@@ -131,7 +120,7 @@ public class PlayerManagment : MonoBehaviour
 
     bool isPlayerAttacking()
     {
-        if (Input.GetKey("f"))
+        if (Input.GetKeyDown("f"))
         {
             return true;
         }

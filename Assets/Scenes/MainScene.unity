@@ -1008,7 +1008,7 @@ MonoBehaviour:
   Projectile_Start: {fileID: 222322083}
   rb: {fileID: 1768370474}
   instantiation: {fileID: 0}
-  startTimeBtwShots: 0.65
+  interval: 0.5
 --- !u!114 &1768370473
 MonoBehaviour:
   m_ObjectHideFlags: 0
