@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5282274890063757365}
   - component: {fileID: 5282274890063757370}
   - component: {fileID: 5282274890063757371}
+  - component: {fileID: -2355791003385839252}
   m_Layer: 0
   m_Name: Executioner
   m_TagString: Untagged
@@ -119,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 2
-  maxHealth: 20
+  maxHealth: 100
 --- !u!95 &5282274890063757370
 Animator:
   serializedVersion: 3
@@ -196,3 +197,17 @@ PolygonCollider2D:
       - {x: 0.12405139, y: 0.21824177}
       - {x: 0.062224682, y: 0.21799849}
       - {x: 0.061400488, y: 0.27987787}
+--- !u!114 &-2355791003385839252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5282274890063757368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a78b6a7acd9ab4489ba12d38cd63ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackForce: 5
+  knockbackTime: 0.1

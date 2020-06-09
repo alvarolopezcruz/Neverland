@@ -53,7 +53,7 @@ public class PlayerManagment : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
 
-            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x - 1, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
+            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x - 0.553f, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
             projectile.GetComponent<SpriteRenderer>().flipX = true;
             direction = "left";
         }
@@ -62,7 +62,7 @@ public class PlayerManagment : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
 
-            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x + 1, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
+            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x + 0.553f, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
             projectile.GetComponent<SpriteRenderer>().flipX = false;
             direction = "right";
         }

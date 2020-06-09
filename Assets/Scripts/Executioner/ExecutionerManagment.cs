@@ -22,7 +22,7 @@ public class ExecutionerManagment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fixSprite(player);
+        fixSprite();
 
        
     }
@@ -34,7 +34,7 @@ public class ExecutionerManagment : MonoBehaviour
 
     
 
-    void fixSprite(Transform character)
+    void fixSprite()
     {
         if (gameObject.GetComponent<Transform>().position.x >= player.position.x)
         {
