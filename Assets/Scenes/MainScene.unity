@@ -313,7 +313,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.24565268, y: 0.36484158}
+  m_Offset: {x: 0.2456522, y: 0.36484158}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -324,7 +324,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 13.241107, y: 1.2243807}
+  m_Size: {x: 17.391455, y: 1.2243807}
   m_EdgeRadius: 0
 --- !u!4 &260234770
 Transform:
@@ -801,11 +801,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1768370471}
   - component: {fileID: 1768370470}
-  - component: {fileID: 1768370473}
   - component: {fileID: 1768370474}
   - component: {fileID: 1768370475}
   - component: {fileID: 1768370476}
   - component: {fileID: 1768370472}
+  - component: {fileID: 1768370473}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -911,7 +911,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1768370469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b773aba5854d941a81cdb0457ff7d2, type: 3}
+  m_Script: {fileID: 11500000, guid: cf6f7b7fcf291314d9c175c2dadf4cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 519420031}

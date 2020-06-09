@@ -7,14 +7,17 @@ public class Projectile : MonoBehaviour
   
     public float speed;
     public float lifeTime;
-    public string direction;
+    [HideInInspector]
     public Rigidbody2D rb;
-    
+    [HideInInspector]
+    public string direction;
+
     // Start is called before the first frame update
     void Start()
     {
         Invoke("DestroyProjectile", lifeTime);
         rb = gameObject.GetComponent<Rigidbody2D>();
+        calculateDirection();
     }
 
     // Update is called once per frame
@@ -34,7 +37,6 @@ public class Projectile : MonoBehaviour
         {
             rb.velocity = transform.right * speed;
         }
-        
     }
 
 
@@ -46,6 +48,33 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         DestroyProjectile();
+    }
+
+    private void calculateDirection()
+    {
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            if (direction == "left")
+            {
+                transform.eulerAngles = Vector3.forward * 15;
+            }
+            else
+            {
+                transform.eulerAngles = Vector3.forward * -15;
+            }
+        }
+        else
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+               if (direction == "left")
+               {
+                   transform.eulerAngles = Vector3.forward * -15;
+               }
+               else
+               {
+                transform.eulerAngles = Vector3.forward * 15;
+            }
+            }
     }
 
 
