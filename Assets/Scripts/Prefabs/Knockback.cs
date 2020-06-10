@@ -11,13 +11,13 @@ public class Knockback : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -30,10 +30,10 @@ public class Knockback : MonoBehaviour
             StartCoroutine(KnockCo(gameObject.GetComponent<Rigidbody2D>()));
         }
     }
-    
+
     private IEnumerator KnockCo(Rigidbody2D executioner)
     {
-        if(executioner != null)
+        if (executioner != null)
         {
             yield return new WaitForSeconds(knockbackTime);
             executioner.velocity = Vector2.zero;

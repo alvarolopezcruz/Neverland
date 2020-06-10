@@ -9,7 +9,7 @@ public class PlayerManagment : MonoBehaviour
     public string direction;
     public float currentHealth;
     public float maxHealth = 100;
-    
+
 
     Vector2 movement;
 
@@ -37,7 +37,7 @@ public class PlayerManagment : MonoBehaviour
         //Input management goes here
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
- 
+
 
         if (isPlayerMoving())
         {
@@ -49,24 +49,6 @@ public class PlayerManagment : MonoBehaviour
             gameObject.GetComponent<Animator>().SetBool("moving", false);
         }
 
-        if (Input.GetKey("left"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-
-            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x - 0.553f, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
-            projectile.GetComponent<SpriteRenderer>().flipX = true;
-            direction = "left";
-        }
-
-        if (Input.GetKey("right"))
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-
-            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x + 0.553f, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
-            projectile.GetComponent<SpriteRenderer>().flipX = false;
-            direction = "right";
-        }
-
         if (isPlayerAttacking())
         {
             if (Time.time >= nextShot)
@@ -75,8 +57,27 @@ public class PlayerManagment : MonoBehaviour
 
                 nextShot = Time.time + interval;
 
-                instantiation = Instantiate(projectile, Projectile_Start.position, Quaternion.identity); //Instanciamos el proyectil
+                instantiation = Instantiate(projectile, Projectile_Start.position, Quaternion.identity); 
                 instantiation.GetComponent<Projectile>().direction = direction;
+            }
+        }
+        else
+        {
+            if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Move")) { //Waits for the attack animation to finish in case its on
+
+                if (Input.GetKey("left"))
+                {
+                    setProjectileStart("left");
+                    projectile.GetComponent<SpriteRenderer>().flipX = true;
+                    direction = "left";
+                }
+
+                if (Input.GetKey("right"))
+                {
+                    setProjectileStart("right");
+                    projectile.GetComponent<SpriteRenderer>().flipX = false;
+                    direction = "right";
+                }
             }
         }
     }
@@ -92,20 +93,20 @@ public class PlayerManagment : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         takeDamage(20);
-        
+
     }
 
     void takeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.setHealth(currentHealth);
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             //Matar al player
         }
     }
 
-    bool isPlayerMoving()
+    bool isPlayerMoving() //Checks if player is moving
     {
         if (Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down"))
         {
@@ -118,18 +119,47 @@ public class PlayerManagment : MonoBehaviour
         }
     }
 
-    bool isPlayerAttacking()
+    bool isPlayerAttacking() //Checks if player is attacking and fixes projectile direction
     {
-        if (Input.GetKeyDown("f"))
+        if (Input.GetKeyDown("q"))
         {
+            setProjectileStart("left");
+            direction = "left";
+            fixPlayerSprite("left");
             return true;
         }
 
-        else
+        else if (Input.GetKeyDown("e"))
         {
-            return false;
+            setProjectileStart("right");
+            direction = "right";
+            fixPlayerSprite("right");
+            return true;
         }
+
+        return false;
+       
     }
 
+    void setProjectileStart(string direction) //Sets projectile start point depending of the direction
+    {
+        if (direction == "left")
+        {
+            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x - 0.553f, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
+        }
+        else
+            Projectile_Start.transform.position = new Vector3(gameObject.GetComponent<Transform>().position.x + 0.553f, gameObject.GetComponent<Transform>().position.y, gameObject.GetComponent<Transform>().position.z);
+    }
+
+
+    void fixPlayerSprite(string direction) //Fixes player sprite depending on the direction
+    {
+        if(direction == "left")
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+    }
 
 }

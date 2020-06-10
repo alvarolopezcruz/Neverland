@@ -58,7 +58,6 @@ public class ExecutionerManagment : MonoBehaviour
     void takeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             Destroy(gameObject);

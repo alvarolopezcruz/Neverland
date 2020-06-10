@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  lifeTime: 3
+  lifeTime: 100
   rb: {fileID: 0}
   direction: 
 --- !u!61 &2082702346831013606

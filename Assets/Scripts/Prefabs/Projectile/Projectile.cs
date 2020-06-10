@@ -17,7 +17,8 @@ public class Projectile : MonoBehaviour
     {
         Invoke("DestroyProjectile", lifeTime);
         rb = gameObject.GetComponent<Rigidbody2D>();
-        calculateDirection();
+        calculateDirection(); //Adds inertia to projectiles
+        fixProjectileSprite(); //Fixes projectile sprite direction
     }
 
     // Update is called once per frame
@@ -77,5 +78,14 @@ public class Projectile : MonoBehaviour
             }
     }
 
+    void fixProjectileSprite()
+    {
+        if (direction == "left")
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+    }
 
 }

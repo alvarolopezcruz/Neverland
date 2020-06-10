@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 5282274890063757365}
   - component: {fileID: 5282274890063757370}
   - component: {fileID: 5282274890063757371}
-  - component: {fileID: -2355791003385839252}
+  - component: {fileID: 4129047404257281255}
   m_Layer: 0
   m_Name: Executioner
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ PolygonCollider2D:
       - {x: 0.12405139, y: 0.21824177}
       - {x: 0.062224682, y: 0.21799849}
       - {x: 0.061400488, y: 0.27987787}
---- !u!114 &-2355791003385839252
+--- !u!114 &4129047404257281255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
