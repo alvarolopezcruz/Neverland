@@ -121,7 +121,7 @@ public class PlayerManagment : MonoBehaviour
 
     bool isPlayerAttacking() //Checks if player is attacking and fixes projectile direction
     {
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKey("q"))
         {
             setProjectileStart("left");
             direction = "left";
@@ -129,7 +129,7 @@ public class PlayerManagment : MonoBehaviour
             return true;
         }
 
-        else if (Input.GetKeyDown("e"))
+        else if (Input.GetKey("e"))
         {
             setProjectileStart("right");
             direction = "right";

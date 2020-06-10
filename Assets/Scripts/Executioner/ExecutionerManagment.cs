@@ -7,16 +7,22 @@ public class ExecutionerManagment : MonoBehaviour
 {
 
     Transform player;
+
     private Vector2 movement;
     public float movespeed = 3;
     public float maxHealth;
     private float currentHealth;
+    private Material matWhite;
+    private Material matDefault;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
         currentHealth = maxHealth;
+        matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
+        matDefault = gameObject.GetComponent<SpriteRenderer>().material;
+        
     }
      
     // Update is called once per frame
@@ -49,7 +55,7 @@ public class ExecutionerManagment : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.name == "Projectile(Clone)")
+        if (col.CompareTag("Projectile"))
         {
             takeDamage(20);
         } 
@@ -58,10 +64,25 @@ public class ExecutionerManagment : MonoBehaviour
     void takeDamage(int damage)
     {
         currentHealth -= damage;
+        gameObject.GetComponent<SpriteRenderer>().material = matWhite;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            killSelf();
         }
+        else
+        {
+            Invoke("resetMaterial", .1f);
+        }
+    }
+
+    private void killSelf()
+    {
+        Destroy(gameObject);
+    }
+
+    void resetMaterial()
+    {
+        gameObject.GetComponent<SpriteRenderer>().material = matDefault;
     }
 
 }
