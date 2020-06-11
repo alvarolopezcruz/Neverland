@@ -12,8 +12,10 @@ public class ExecutionerManagment : MonoBehaviour
     public float movespeed = 3;
     public float maxHealth;
     private float currentHealth;
+
     private Material matWhite;
     private Material matDefault;
+    private UnityEngine.Object explosionRef;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class ExecutionerManagment : MonoBehaviour
         currentHealth = maxHealth;
         matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
         matDefault = gameObject.GetComponent<SpriteRenderer>().material;
+        explosionRef = Resources.Load("EnemyExplosion");
         
     }
      
@@ -58,7 +61,7 @@ public class ExecutionerManagment : MonoBehaviour
         if (col.CompareTag("Projectile"))
         {
             takeDamage(20);
-        } 
+        }
     }
 
     void takeDamage(int damage)
@@ -77,6 +80,8 @@ public class ExecutionerManagment : MonoBehaviour
 
     private void killSelf()
     {
+        GameObject explosion = (GameObject)Instantiate(explosionRef);
+        explosion.transform.position = new Vector2(transform.position.x, transform.position.y + .3f);
         Destroy(gameObject);
     }
 
@@ -84,5 +89,6 @@ public class ExecutionerManagment : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().material = matDefault;
     }
+
 
 }

@@ -211,3 +211,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackForce: 5
   knockbackTime: 0.1
+  stunTime: 1

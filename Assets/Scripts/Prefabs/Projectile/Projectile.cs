@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
   
     public float speed;
     public float lifeTime;
+    private UnityEngine.Object explosionRef;
     [HideInInspector]
     public Rigidbody2D rb;
     [HideInInspector]
@@ -19,6 +20,7 @@ public class Projectile : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         calculateDirection(); //Adds inertia to projectiles
         fixProjectileSprite(); //Fixes projectile sprite direction
+        explosionRef = Resources.Load("ProjectileCollisionExplosion");
     }
 
     // Update is called once per frame
@@ -43,6 +45,8 @@ public class Projectile : MonoBehaviour
 
      void DestroyProjectile()
     {
+        GameObject explosion = (GameObject)Instantiate(explosionRef);
+        explosion.transform.position = new Vector2(transform.position.x, transform.position.y);
         Destroy(gameObject);
     }
 
