@@ -18,6 +18,8 @@ public class PlayerManagment : MonoBehaviour
     public Transform Projectile_Start;
     public Rigidbody2D rb;
     public GameObject instantiation;
+    private Material matWhite;
+    private Material matDefault;
 
     public float interval = 0.65f;
     private float nextShot = 0.0f;
@@ -29,6 +31,8 @@ public class PlayerManagment : MonoBehaviour
         projectile.GetComponent<SpriteRenderer>().flipX = false; //Para evitar problemas al momento de la instanciación
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
+        matDefault = gameObject.GetComponent<SpriteRenderer>().material;
     }
 
     // Update is called once per frame
@@ -92,17 +96,25 @@ public class PlayerManagment : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        takeDamage(20);
+        if (col.CompareTag("Enemy"))
+        {
+            takeDamage(20);
+        }
 
     }
 
     void takeDamage(int damage)
     {
         currentHealth -= damage;
+        gameObject.GetComponent<SpriteRenderer>().material = matWhite;
         healthBar.setHealth(currentHealth);
         if (currentHealth <= 0)
         {
             //Matar al player
+        }
+        else
+        {
+            Invoke("resetMaterial", .2f);
         }
     }
 
@@ -162,4 +174,8 @@ public class PlayerManagment : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
     }
 
+    void resetMaterial()
+    {
+        gameObject.GetComponent<SpriteRenderer>().material = matDefault;
+    }
 }

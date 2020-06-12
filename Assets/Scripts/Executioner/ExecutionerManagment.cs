@@ -32,8 +32,6 @@ public class ExecutionerManagment : MonoBehaviour
     void Update()
     {
         fixSprite();
-
-       
     }
 
     void FixedUpdate()

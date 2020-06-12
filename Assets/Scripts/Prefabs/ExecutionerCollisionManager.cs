@@ -33,6 +33,7 @@ public class ExecutionerCollisionManager : MonoBehaviour
         }
         if (col.gameObject.CompareTag("Player"))
         {
+            gameObject.GetComponent<Animator>().SetBool("stunned", true);
             StartCoroutine(StunCo());
         }
     }
@@ -50,6 +51,7 @@ public class ExecutionerCollisionManager : MonoBehaviour
     {
         gameObject.GetComponent<ExecutionerManagment>().enabled = false;
         yield return new WaitForSeconds(stunTime);
+        gameObject.GetComponent<Animator>().SetBool("stunned", false);
         gameObject.GetComponent<ExecutionerManagment>().enabled = true;
     }
 }
