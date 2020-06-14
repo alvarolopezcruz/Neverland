@@ -6,13 +6,13 @@ using UnityEngine;
 public class PlayerManagment : MonoBehaviour
 {
     public float moveSpeed = 5;
+    private float moveX;
+    private float moveY;
     public string direction;
     public float currentHealth;
     public float maxHealth = 100;
 
-
-    Vector2 movement;
-
+    private Vector2 moveDirection;
     public HealthBar healthBar;
     public GameObject projectile;
     public Transform Projectile_Start;
@@ -20,9 +20,11 @@ public class PlayerManagment : MonoBehaviour
     public GameObject instantiation;
     private Material matWhite;
     private Material matDefault;
+    private UnityEngine.Object DustEffect;
+    public ParticleSystem dustEffect;
 
-    public float interval = 0.65f;
-    private float nextShot = 0.0f;
+    public float interval;
+    private float nextShot;
 
 
     // Start is called before the first frame updateW
@@ -33,15 +35,14 @@ public class PlayerManagment : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
         matDefault = gameObject.GetComponent<SpriteRenderer>().material;
+        nextShot = 0.0f;
+        DustEffect = Resources.Load("DustEffect");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Input management goes here
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
+        processInputs();
 
         if (isPlayerMoving())
         {
@@ -84,6 +85,12 @@ public class PlayerManagment : MonoBehaviour
                 }
             }
         }
+
+        if (!(gameObject.GetComponent<Rigidbody2D>().velocity.x != 0  || gameObject.GetComponent<Rigidbody2D>().velocity.y != 0))
+        {
+            createDust();
+        }
+
     }
 
 
@@ -91,7 +98,7 @@ public class PlayerManagment : MonoBehaviour
     void FixedUpdate()
     {
         //Movement management goes here
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -178,4 +185,18 @@ public class PlayerManagment : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().material = matDefault;
     }
+
+    void createDust()
+    {
+        dustEffect.Play();
+    }
+
+    void processInputs()
+    {
+        moveX = Input.GetAxisRaw("Horizontal");
+        moveY = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector2(moveX, moveY).normalized;
+    }
+
+
 }
