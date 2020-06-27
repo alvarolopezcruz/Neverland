@@ -30,7 +30,7 @@ public class PlayerManagment : MonoBehaviour
     // Start is called before the first frame updateW
     void Start()
     {
-        projectile.GetComponent<SpriteRenderer>().flipX = false; //Para evitar problemas al momento de la instanciación
+        //projectile.GetComponent<SpriteRenderer>().flipX = false; //Para evitar problemas al momento de la instanciación
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
@@ -63,10 +63,10 @@ public class PlayerManagment : MonoBehaviour
                 nextShot = Time.time + interval;
 
                 instantiation = Instantiate(projectile, Projectile_Start.position, Quaternion.identity); 
-                instantiation.GetComponent<Projectile>().direction = direction;
+                instantiation.GetComponent<FireballManagement>().direction = direction;
             }
         }
-        else
+        /*else
         {
             if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Move")) { //Waits for the attack animation to finish in case its on
 
@@ -84,7 +84,7 @@ public class PlayerManagment : MonoBehaviour
                     direction = "right";
                 }
             }
-        }
+        }*/
 
         if (!(gameObject.GetComponent<Rigidbody2D>().velocity.x != 0  || gameObject.GetComponent<Rigidbody2D>().velocity.y != 0))
         {
@@ -110,7 +110,7 @@ public class PlayerManagment : MonoBehaviour
 
     }
 
-    void takeDamage(int damage)
+    public void takeDamage(int damage)
     {
         currentHealth -= damage;
         gameObject.GetComponent<SpriteRenderer>().material = matWhite;

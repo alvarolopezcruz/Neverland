@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Projectile : MonoBehaviour
+public class FireballManagement : MonoBehaviour
 {
-  
+
     public float speed;
     public float lifeTime;
     private UnityEngine.Object explosionRef;
@@ -19,7 +20,7 @@ public class Projectile : MonoBehaviour
         Invoke("DestroyProjectile", lifeTime);
         rb = gameObject.GetComponent<Rigidbody2D>();
         calculateDirection(); //Adds inertia to projectiles
-        fixProjectileSprite(); //Fixes projectile sprite direction
+        fixProjectileSprite(); //Fixes projectile sprite direction and handles inerta in the opposite direction
         explosionRef = Resources.Load("ProjectileCollisionExplosion");
     }
 
@@ -27,23 +28,16 @@ public class Projectile : MonoBehaviour
     void Update()
     {
 
-        
+
     }
 
     void FixedUpdate()
     {
-        if (direction == "left")
-        {
-            rb.velocity = transform.right * -speed;
-        }
-        else
-        {
-            rb.velocity = transform.right * speed;
-        }
+        moveProjectile();
     }
 
 
-     void DestroyProjectile()
+    void DestroyProjectile()
     {
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector2(transform.position.x, transform.position.y);
@@ -52,44 +46,57 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        DestroyProjectile();
+        if (!col.CompareTag("Player")) {
+            DestroyProjectile();
+        }
     }
 
     private void calculateDirection()
     {
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (direction == "left")
         {
-            if (direction == "left")
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 transform.eulerAngles = Vector3.forward * 15;
             }
             else
-            {
-                transform.eulerAngles = Vector3.forward * -15;
-            }
-        }
-        else
             if (Input.GetKey(KeyCode.UpArrow))
-            {
-               if (direction == "left")
-               {
-                   transform.eulerAngles = Vector3.forward * -15;
-               }
-               else
-               {
-                transform.eulerAngles = Vector3.forward * 15;
-            }
-            }
+                transform.eulerAngles = Vector3.forward * -15;
+        }
     }
 
     void fixProjectileSprite()
     {
-        if (direction == "left")
+        if (direction == "right" && !(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)))
         {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            transform.eulerAngles = Vector3.forward * 180;
         }
         else
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        {
+            if (direction == "right" && Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.eulerAngles = Vector3.forward * 165;
+            }
+            else
+            {
+                if (direction == "right" && Input.GetKey(KeyCode.UpArrow))
+                {
+                    transform.eulerAngles = Vector3.forward * 195;
+                }
+            }
+        }
+    }
+
+    void moveProjectile()
+    {
+        if (direction == "left")
+        {
+            rb.velocity = transform.right * -speed;
+        }
+        else
+        {
+            rb.velocity = transform.right * -speed;
+        }
     }
 
 }
