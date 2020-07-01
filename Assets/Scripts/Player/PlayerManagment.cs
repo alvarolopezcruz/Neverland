@@ -66,25 +66,6 @@ public class PlayerManagment : MonoBehaviour
                 instantiation.GetComponent<FireballManagement>().direction = direction;
             }
         }
-        /*else
-        {
-            if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Move")) { //Waits for the attack animation to finish in case its on
-
-                if (Input.GetKey("left"))
-                {
-                    setProjectileStart("left");
-                    projectile.GetComponent<SpriteRenderer>().flipX = true;
-                    direction = "left";
-                }
-
-                if (Input.GetKey("right"))
-                {
-                    setProjectileStart("right");
-                    projectile.GetComponent<SpriteRenderer>().flipX = false;
-                    direction = "right";
-                }
-            }
-        }*/
 
         if (!(gameObject.GetComponent<Rigidbody2D>().velocity.x != 0  || gameObject.GetComponent<Rigidbody2D>().velocity.y != 0))
         {
@@ -197,6 +178,5 @@ public class PlayerManagment : MonoBehaviour
         moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
-
 
 }

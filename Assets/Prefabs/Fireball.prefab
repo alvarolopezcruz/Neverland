@@ -4779,7 +4779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  lifeTime: 10000
+  lifeTime: 4
   rb: {fileID: 0}
   direction: 
 --- !u!50 &2468067879517977016
