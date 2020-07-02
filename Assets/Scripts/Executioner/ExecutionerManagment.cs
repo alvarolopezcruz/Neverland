@@ -8,15 +8,19 @@ public class ExecutionerManagment : MonoBehaviour
 
     Transform player;
 
-    private Vector2 movement;
-    public float movespeed = 3;
+    [HideInInspector]
+    public float movespeed;
+    public float movespeedValue;
     public float maxHealth;
     private float currentHealth;
-    private float expEraseTimer = 1;
+    private float expEraseTimer = 1; //Time before erasing the particle system
+    public bool landed = false;
 
     private Material matWhite;
     private Material matDefault;
     private UnityEngine.Object explosionRef;
+    private SpriteRenderer shadowRenderer;
+    private Transform shadowPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +30,9 @@ public class ExecutionerManagment : MonoBehaviour
         matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
         matDefault = gameObject.GetComponent<SpriteRenderer>().material;
         explosionRef = Resources.Load("EnemyExplosion");
-        
+        shadowRenderer = transform.Find("ExecutionerShadow").GetComponent<SpriteRenderer>();
+        shadowRenderer.enabled = false;
+        shadowPosition = transform.Find("ExecutionerShadow");
     }
      
     // Update is called once per frame
@@ -47,19 +53,33 @@ public class ExecutionerManagment : MonoBehaviour
         if (gameObject.GetComponent<Transform>().position.x >= player.position.x)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            shadowPosition.position = new Vector3(gameObject.transform.position.x + 0.062f, gameObject.transform.position.y - 0.378f, gameObject.transform.position.z + 1f);
         }
 
         else
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            shadowPosition.position = new Vector3(gameObject.transform.position.x - 0.062f, gameObject.transform.position.y - 0.378f, gameObject.transform.position.z + 1f);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Projectile"))
+        if (col.CompareTag("Projectile") && landed) //Hit by a projectile
         {
             takeDamage(20);
+        }
+        if (col.CompareTag("endFallPoint")) //Managment when executioner reaches the ground
+        {
+            if (!landed)
+            {
+                shadowRenderer.enabled = true;
+                movespeed = movespeedValue;
+                gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                Destroy(col.gameObject);
+                landed = true;
+            }
         }
     }
 
@@ -89,6 +109,4 @@ public class ExecutionerManagment : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().material = matDefault;
     }
-
-
 }

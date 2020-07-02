@@ -19,11 +19,11 @@ public class FireballManagement : MonoBehaviour
     void Start()
     {
         Invoke("DestroyProjectile", lifeTime);
-        Invoke("DestroyExplosion", lifeTime);
         rb = gameObject.GetComponent<Rigidbody2D>();
         calculateDirection(); //Adds inertia to projectiles
         fixProjectileSprite(); //Fixes projectile sprite direction and handles inerta in the opposite direction
         explosionRef = Resources.Load("ProjectileCollisionExplosion");
+
     }
 
     // Update is called once per frame
@@ -49,7 +49,12 @@ public class FireballManagement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.CompareTag("Player") && !col.CompareTag("Background")) {
+        if (col.CompareTag("Wall")) {
+            DestroyProjectile();
+        }
+
+        if (col.CompareTag("Enemy") && col.gameObject.GetComponent<ExecutionerManagment>().landed == true)
+        {
             DestroyProjectile();
         }
     }

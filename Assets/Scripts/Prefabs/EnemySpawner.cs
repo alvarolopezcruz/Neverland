@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class EnemySpawner : MonoBehaviour
 {
 
     public GameObject[] enemies;
     Vector2 area;
-
+    public GameObject endFallPoint;
+    private GameObject instantiation;
 
     int randomEnemie;
     public float startTimeBtwSpawns;
     private float timeBtwSpawns;
+    public float fallSpeed;
+    public float heigth;
 
 
     // Start is called before the first frame update
@@ -29,10 +31,16 @@ public class EnemySpawner : MonoBehaviour
 
     void Spawner()
     {
+        Vector3 endPoint = randomPointInMap();
+        Vector3 spawnPoint = endPoint;
+        spawnPoint.y = heigth;
+        
         randomEnemie = Random.Range(0, enemies.Length);
         if (timeBtwSpawns <= 0)
         {
-            Instantiate(enemies[0], randomPointInMap(), Quaternion.identity);
+            instantiation = Instantiate(enemies[0], spawnPoint, Quaternion.identity);
+            putEndPoint(endPoint);
+            enemyFalling(instantiation, endPoint);
             timeBtwSpawns = startTimeBtwSpawns;
         }
         else
@@ -49,4 +57,20 @@ public class EnemySpawner : MonoBehaviour
             0
         );
     }
+
+    void enemyFalling(GameObject enemy, Vector3 endPoint)
+    {
+        Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+        if (enemy.transform.position.y != endPoint.y)
+        {
+            rb.gravityScale = 1;
+            enemy.GetComponent<ExecutionerManagment>().movespeed = 0;
+        }
+    }
+
+    void putEndPoint(Vector3 endPoint)
+    {
+        Instantiate(endFallPoint, endPoint, Quaternion.identity);
+    }
+
 }

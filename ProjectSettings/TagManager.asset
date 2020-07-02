@@ -8,6 +8,8 @@ TagManager:
   - Projectile
   - Plant
   - Background
+  - endFallPoint
+  - Wall
   layers:
   - Default
   - TransparentFX

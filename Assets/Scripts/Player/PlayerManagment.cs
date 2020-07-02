@@ -84,7 +84,7 @@ public class PlayerManagment : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Enemy"))
+        if (col.CompareTag("Enemy") && col.gameObject.GetComponent<ExecutionerManagment>().landed == true)
         {
             takeDamage(20);
         }
