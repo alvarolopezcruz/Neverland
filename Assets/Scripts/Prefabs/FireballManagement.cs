@@ -8,6 +8,7 @@ public class FireballManagement : MonoBehaviour
 
     public float speed;
     public float lifeTime;
+    private float expEraseTimer = 1;
     private UnityEngine.Object explosionRef;
     [HideInInspector]
     public Rigidbody2D rb;
@@ -18,6 +19,7 @@ public class FireballManagement : MonoBehaviour
     void Start()
     {
         Invoke("DestroyProjectile", lifeTime);
+        Invoke("DestroyExplosion", lifeTime);
         rb = gameObject.GetComponent<Rigidbody2D>();
         calculateDirection(); //Adds inertia to projectiles
         fixProjectileSprite(); //Fixes projectile sprite direction and handles inerta in the opposite direction
@@ -42,6 +44,7 @@ public class FireballManagement : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector2(transform.position.x, transform.position.y);
         Destroy(gameObject);
+        Destroy(explosion, expEraseTimer);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -98,5 +101,7 @@ public class FireballManagement : MonoBehaviour
             rb.velocity = transform.right * -speed;
         }
     }
+
+
 
 }

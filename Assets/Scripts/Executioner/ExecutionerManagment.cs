@@ -12,6 +12,7 @@ public class ExecutionerManagment : MonoBehaviour
     public float movespeed = 3;
     public float maxHealth;
     private float currentHealth;
+    private float expEraseTimer = 1;
 
     private Material matWhite;
     private Material matDefault;
@@ -81,6 +82,7 @@ public class ExecutionerManagment : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector2(transform.position.x, transform.position.y + .3f);
         Destroy(gameObject);
+        Destroy(explosion, expEraseTimer);
     }
 
     void resetMaterial()
