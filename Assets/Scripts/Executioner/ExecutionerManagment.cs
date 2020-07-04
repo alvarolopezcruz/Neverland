@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class ExecutionerManagment : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class ExecutionerManagment : MonoBehaviour
     public float maxHealth;
     private float currentHealth;
     private float expEraseTimer = 1; //Time before erasing the particle system
+    [HideInInspector]
     public bool landed = false;
 
     private Material matWhite;
@@ -53,13 +54,13 @@ public class ExecutionerManagment : MonoBehaviour
         if (gameObject.GetComponent<Transform>().position.x >= player.position.x)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            shadowPosition.position = new Vector3(gameObject.transform.position.x + 0.062f, gameObject.transform.position.y - 0.378f, gameObject.transform.position.z + 1f);
+            shadowPosition.position = new Vector3(gameObject.transform.position.x + 0.075f, gameObject.transform.position.y - 0.32f, gameObject.transform.position.z + 1f);
         }
 
         else
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            shadowPosition.position = new Vector3(gameObject.transform.position.x - 0.062f, gameObject.transform.position.y - 0.378f, gameObject.transform.position.z + 1f);
+            shadowPosition.position = new Vector3(gameObject.transform.position.x - 0.075f, gameObject.transform.position.y - 0.32f, gameObject.transform.position.z + 1f);
         }
     }
 
