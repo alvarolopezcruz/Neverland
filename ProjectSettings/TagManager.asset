@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Projectile
-  - Plant
   - Background
   - endFallPoint
   - Wall
+  - Enemy_Executioner
+  - Enemy_Plant
   layers:
   - Default
   - TransparentFX

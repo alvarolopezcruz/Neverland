@@ -53,7 +53,11 @@ public class FireballManagement : MonoBehaviour
             DestroyProjectile();
         }
 
-        if (col.CompareTag("Enemy") && col.gameObject.GetComponent<ExecutionerManagment>().landed == true)
+        if (col.CompareTag("Enemy_Executioner") && col.gameObject.GetComponent<ExecutionerManagment>().landed == true)
+        {
+            DestroyProjectile();
+        }
+        if (col.CompareTag("Enemy_Plant"))
         {
             DestroyProjectile();
         }

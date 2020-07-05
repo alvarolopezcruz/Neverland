@@ -4,8 +4,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    public GameObject[] enemies;
+    private Vector3 plantCirceEdgeTempScale;
+    private Vector3 plantCircleInsideTempScale;
+    private Vector3 tempScale;
     Vector2 area;
+    public GameObject[] enemies;
     public GameObject endFallPoint;
     private GameObject instantiation;
 
@@ -14,6 +17,11 @@ public class EnemySpawner : MonoBehaviour
     private float timeBtwSpawns;
     public float fallSpeed;
     public float heigth;
+    private bool scalingPlant = false;
+    public float plantScaleRate;
+    private float plantSize;
+    public float minPlantSize;
+    public float maxPlantSize;
 
 
     // Start is called before the first frame update
@@ -26,10 +34,14 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Spawner();
+        spawnRandomEnemy();
+        if (scalingPlant)
+        {
+            plantScaling();
+        }
     }
 
-    void Spawner()
+    void spawnRandomEnemy()
     {
         Vector3 endPoint = randomPointInMap();
         Vector3 spawnPoint = endPoint;
@@ -38,9 +50,18 @@ public class EnemySpawner : MonoBehaviour
         randomEnemie = Random.Range(0, enemies.Length);
         if (timeBtwSpawns <= 0)
         {
-            instantiation = Instantiate(enemies[0], spawnPoint, Quaternion.identity);
-            putEndPoint(endPoint);
-            enemyFalling(instantiation, endPoint);
+            switch (randomEnemie)
+            {
+                case 0: //Enemy is an executioner
+                    spawnExecutioner(spawnPoint, endPoint);
+                    break;
+                case 1: //Enemy is a plant
+                    spawnPlant(endPoint);
+                    setPlantScaleToZero();
+                    plantSize = Random.Range(minPlantSize, maxPlantSize);
+                    scalingPlant = true;
+                    break;
+            }
             timeBtwSpawns = startTimeBtwSpawns;
         }
         else
@@ -73,4 +94,48 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(endFallPoint, endPoint, Quaternion.identity);
     }
 
+    void spawnExecutioner(Vector3 spawnPoint, Vector3 endPoint)
+    {
+        instantiation = Instantiate(enemies[0], spawnPoint, Quaternion.identity);
+        putEndPoint(endPoint);
+        enemyFalling(instantiation, endPoint);
+    }
+
+    void spawnPlant(Vector3 spawnPoint)
+    {
+        instantiation = Instantiate(enemies[1], spawnPoint, Quaternion.identity);
+        
+        scalingPlant = true;
+    }
+
+    void plantScaling()
+    {
+        if (instantiation.transform.localScale.x < plantSize && instantiation.transform.localScale.y < plantSize)
+        {
+            tempScale = instantiation.transform.localScale;
+            plantCirceEdgeTempScale = instantiation.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale;
+            plantCircleInsideTempScale = instantiation.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale;
+            plantCircleInsideTempScale.x += plantScaleRate; // Scale plant and its children
+            plantCircleInsideTempScale.y += plantScaleRate;
+            plantCirceEdgeTempScale.x += plantScaleRate;
+            plantCirceEdgeTempScale.y += plantScaleRate;
+            tempScale.x += plantScaleRate;
+            tempScale.y += plantScaleRate;
+            instantiation.transform.localScale = tempScale;
+            instantiation.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale = plantCirceEdgeTempScale;
+            instantiation.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale = plantCircleInsideTempScale;
+            instantiation.GetComponent<PlantManagment>().radius = tempScale.x; //ScaleRadius
+        }
+        else
+        {
+            scalingPlant = false;
+        }
+    }
+
+    void setPlantScaleToZero()
+    {
+        instantiation.transform.localScale = Vector3.zero;
+        instantiation.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale = Vector3.zero;
+        instantiation.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale = Vector3.zero;
+    }
 }
