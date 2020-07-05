@@ -56,10 +56,9 @@ public class EnemySpawner : MonoBehaviour
                     spawnExecutioner(spawnPoint, endPoint);
                     break;
                 case 1: //Enemy is a plant
+                    plantSize = Random.Range(minPlantSize, maxPlantSize);
                     spawnPlant(endPoint);
                     setPlantScaleToZero();
-                    plantSize = Random.Range(minPlantSize, maxPlantSize);
-                    scalingPlant = true;
                     break;
             }
             timeBtwSpawns = startTimeBtwSpawns;

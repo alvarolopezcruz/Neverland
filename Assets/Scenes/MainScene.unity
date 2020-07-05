@@ -5831,12 +5831,12 @@ MonoBehaviour:
   - {fileID: 2957780112052735317, guid: 5a6cd689257e1744aaf27193afc583db, type: 3}
   endFallPoint: {fileID: 6786078724372476675, guid: 3c885b0c603def74f9e2f106eaffa25e,
     type: 3}
-  startTimeBtwSpawns: 2
+  startTimeBtwSpawns: 5
   fallSpeed: 4
   heigth: 6
-  plantScaleRate: 0.001
+  plantScaleRate: 0.002
   minPlantSize: 0.7
-  maxPlantSize: 1
+  maxPlantSize: 1.2
 --- !u!4 &1882554220
 Transform:
   m_ObjectHideFlags: 0
