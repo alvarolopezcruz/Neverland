@@ -48,8 +48,7 @@ public class PlayerManagment : MonoBehaviour
         {
             gameObject.GetComponent<Animator>().SetBool("moving", true);
         }
-
-        if (!isPlayerMoving())
+        else
         {
             gameObject.GetComponent<Animator>().SetBool("moving", false);
         }

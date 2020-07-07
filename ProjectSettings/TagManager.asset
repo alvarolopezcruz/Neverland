@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Enemy_Executioner
   - Enemy_Plant
+  - Spawner
   layers:
   - Default
   - TransparentFX

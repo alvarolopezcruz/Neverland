@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movespeed: 3
   movespeedValue: 3
-  maxHealth: 100
+  maxHealth: 20
   landed: 0
 --- !u!114 &4129047404257281255
 MonoBehaviour:
