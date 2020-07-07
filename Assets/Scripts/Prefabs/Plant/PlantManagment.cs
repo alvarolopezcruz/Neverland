@@ -40,7 +40,7 @@ public class PlantManagment : MonoBehaviour
         area = Physics2D.OverlapCircle(spawnPoint, radius,1,1);
         if (area != null)
         {
-            if (area.CompareTag("Player"))
+            if (area.CompareTag("Player") && radius != 0)
             {
                 player.GetComponent<PlantDamageManagment>().takePlantDamage(10);
             }
