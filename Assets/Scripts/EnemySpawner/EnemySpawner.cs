@@ -12,16 +12,18 @@ public class EnemySpawner : MonoBehaviour
     public GameObject endFallPoint;
     private GameObject instantiation;
 
-    int randomEnemie;
+    private int randomEnemie;
     public float startTimeBtwSpawns;
     private float timeBtwSpawns;
     public float fallSpeed;
     public float heigth;
+    [HideInInspector]
     public bool scalingPlant = false;
-    public float plantScaleRate;
+    [HideInInspector]
     public float plantSize;
     public float minPlantSize;
     public float maxPlantSize;
+    public float radiusScaleValue;
 
 
     // Start is called before the first frame update
@@ -112,11 +114,9 @@ public class EnemySpawner : MonoBehaviour
         {
             //Scale plant, and then its radius
             tempScale = instantiation.transform.localScale;
-            tempScale.x += plantScaleRate;
-            tempScale.y += plantScaleRate;
+            tempScale += new Vector3(Time.deltaTime * radiusScaleValue,Time.deltaTime * radiusScaleValue);
             instantiation.transform.localScale = tempScale;
             scaleRadius();
-
         }
         else
         {
@@ -128,10 +128,8 @@ public class EnemySpawner : MonoBehaviour
     {
         plantCirceEdgeTempScale = instantiation.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale;
         plantCircleInsideTempScale = instantiation.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale;
-        plantCircleInsideTempScale.x += plantScaleRate;
-        plantCircleInsideTempScale.y += plantScaleRate;
-        plantCirceEdgeTempScale.x += plantScaleRate;
-        plantCirceEdgeTempScale.y += plantScaleRate;
+        plantCircleInsideTempScale += new Vector3(Time.deltaTime * radiusScaleValue, Time.deltaTime * radiusScaleValue);
+        plantCirceEdgeTempScale += new Vector3(Time.deltaTime * radiusScaleValue, Time.deltaTime * radiusScaleValue);
         instantiation.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale = plantCirceEdgeTempScale;
         instantiation.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale = plantCircleInsideTempScale;
         instantiation.GetComponent<PlantManagment>().radius = tempScale.x; //ScaleRadius

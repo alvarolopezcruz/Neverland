@@ -5835,10 +5835,10 @@ MonoBehaviour:
   fallSpeed: 4
   heigth: 6
   scalingPlant: 0
-  plantScaleRate: 0.002
   plantSize: 0
   minPlantSize: 0.7
   maxPlantSize: 1.2
+  radiusScaleValue: 1
 --- !u!4 &1882554220
 Transform:
   m_ObjectHideFlags: 0

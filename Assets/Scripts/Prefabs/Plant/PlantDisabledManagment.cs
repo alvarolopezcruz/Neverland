@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlantDisabledManagment : MonoBehaviour
 {
 
-    private float scaleRate;
-    public float auxRadius;
+    private float auxRadius;
     private bool shrinkingPlantRadius = false;
     private bool scalingRadius = false;
-    public float radiusShrinkRate;
     public float plantSteppedTime;
+    public float shrinkRadiusValue;
+    private float scaleRadiusValue;
 
     private GameObject spawner;
     private Vector3 circleInside;
@@ -20,7 +20,7 @@ public class PlantDisabledManagment : MonoBehaviour
     void Start()
     {
         spawner = GameObject.Find("EnemySpawner");
-        scaleRate = spawner.GetComponent<EnemySpawner>().plantScaleRate;
+        scaleRadiusValue = spawner.GetComponent<EnemySpawner>().radiusScaleValue;
         auxRadius = spawner.GetComponent<EnemySpawner>().plantSize;
     }
 
@@ -65,10 +65,8 @@ public class PlantDisabledManagment : MonoBehaviour
         {
             circleEdge = gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale;
             circleInside = gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale;
-            circleEdge.x += scaleRate;
-            circleEdge.y += scaleRate;
-            circleInside.x += scaleRate;
-            circleInside.y += scaleRate;
+            circleEdge += new Vector3(Time.deltaTime * scaleRadiusValue, Time.deltaTime * scaleRadiusValue);
+            circleInside += new Vector3(Time.deltaTime * scaleRadiusValue, Time.deltaTime * scaleRadiusValue);
             gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale = circleEdge;
             gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale = circleInside;
             gameObject.GetComponent<PlantManagment>().radius = circleEdge.x;
@@ -85,10 +83,8 @@ public class PlantDisabledManagment : MonoBehaviour
         {
             circleEdge = gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale;
             circleInside = gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale;
-            circleEdge.x -= radiusShrinkRate;
-            circleEdge.y -= radiusShrinkRate;
-            circleInside.x -= radiusShrinkRate;
-            circleInside.y -= radiusShrinkRate;
+            circleEdge -= new Vector3(Time.deltaTime * shrinkRadiusValue,Time.deltaTime * shrinkRadiusValue);
+            circleInside -= new Vector3(Time.deltaTime * 2,Time.deltaTime * 2);
             gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale = circleEdge;
             gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale = circleInside;
             gameObject.GetComponent<PlantManagment>().radius = circleEdge.x;
@@ -96,10 +92,8 @@ public class PlantDisabledManagment : MonoBehaviour
         else
         {
             shrinkingPlantRadius = false;
-            circleEdge.x = 0;
-            circleEdge.y = 0;
-            circleInside.x = 0;
-            circleInside.y = 0;
+            circleEdge = Vector3.zero;
+            circleInside = Vector3.zero;
             gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().transform.localScale = circleEdge;
             gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().transform.localScale = circleInside;
             gameObject.GetComponent<PlantManagment>().radius = circleEdge.x;
