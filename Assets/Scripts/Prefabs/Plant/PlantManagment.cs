@@ -8,7 +8,9 @@ public class PlantManagment : MonoBehaviour
     public float radius;
     public float maxHealth;
     private float currentHealth;
+    private float expEraseTimer = 1; //Time before erasing the particle system
 
+    private UnityEngine.Object explosionRef;
     private Collider2D area;
     Vector2 spawnPoint;
     GameObject player;
@@ -25,6 +27,7 @@ public class PlantManagment : MonoBehaviour
         currentHealth = maxHealth;
         matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
         matDefault = gameObject.GetComponent<SpriteRenderer>().material;
+        explosionRef = Resources.Load("Plant Death");
     }
 
     // Update is called once per frame
@@ -71,7 +74,10 @@ public class PlantManagment : MonoBehaviour
 
     void killSelf()
     {
+        GameObject explosion = (GameObject)Instantiate(explosionRef);
+        explosion.transform.position = new Vector2(transform.position.x, transform.position.y + .3f);
         Destroy(gameObject);
+        Destroy(explosion, expEraseTimer);
     }
     void resetMaterial()
     {

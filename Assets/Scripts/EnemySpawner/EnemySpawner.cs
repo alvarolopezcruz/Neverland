@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
                 case 1: //Enemy is a plant
                     plantSize = Random.Range(minPlantSize, maxPlantSize);
                     spawnPlant(endPoint);
-                    setPlantScaleToZero();
+                    setPlantScaleToZero(); //For next plant spawning
                     break;
             }
             timeBtwSpawns = startTimeBtwSpawns;
@@ -80,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
         );
     }
 
-    void enemyFalling(GameObject enemy, Vector3 endPoint)
+    void dropEnemy(GameObject enemy, Vector3 endPoint)
     {
         Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
         if (enemy.transform.position.y != endPoint.y)
@@ -99,7 +99,7 @@ public class EnemySpawner : MonoBehaviour
     {
         instantiation = Instantiate(enemies[0], spawnPoint, Quaternion.identity);
         putEndPoint(endPoint);
-        enemyFalling(instantiation, endPoint);
+        dropEnemy(instantiation, endPoint);
     }
 
     void spawnPlant(Vector3 spawnPoint)

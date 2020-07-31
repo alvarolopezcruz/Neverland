@@ -30,7 +30,7 @@ public class ExecutionerManagment : MonoBehaviour
         currentHealth = maxHealth;
         matWhite = Resources.Load("WhiteFlash", typeof(Material)) as Material;
         matDefault = gameObject.GetComponent<SpriteRenderer>().material;
-        explosionRef = Resources.Load("EnemyExplosion");
+        explosionRef = Resources.Load("Executioner Death");
         shadowRenderer = transform.Find("ExecutionerShadow").GetComponent<SpriteRenderer>();
         shadowRenderer.enabled = false;
         shadowPosition = transform.Find("ExecutionerShadow");
